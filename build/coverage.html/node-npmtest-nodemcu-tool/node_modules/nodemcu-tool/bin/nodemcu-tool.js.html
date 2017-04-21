@@ -1,0 +1,1460 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-nodemcu-tool/node_modules/nodemcu-tool/bin/nodemcu-tool.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-nodemcu-tool">npmtest-nodemcu-tool (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-nodemcu-tool/node_modules/nodemcu-tool/bin/nodemcu-tool.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">23.2% <small>(29 / 125)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">1.32% <small>(1 / 76)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">23.2% <small>(29 / 125)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-nodemcu-tool/node_modules/nodemcu-tool/bin/</a> &#187; nodemcu-tool.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//#!/usr/bin/env node
+&nbsp;
+// Manages User CLI interactions
+&nbsp;
+// load utils
+var _cli = require('commander');
+var _progressbar = require('cli-progress');
+var _pkg = require('../package.json');
+var _prompt = require('prompt');
+var _nodemcutool = require('../lib/NodeMCU-Tool');
+var _luaCommandBuilder = require('../lib/LuaCommandBuilder');
+var _colors = require('colors');
+var _fs = require('fs');
+var _loggingFacility = require('logging-facility');
+var _logger = _loggingFacility.getLogger('NodeMCU-Tool');
+&nbsp;
+// silent mode flag
+var silentModeEnabled = false;
+&nbsp;
+// set the logging backend/upstream
+// every log message is passed to this function
+_loggingFacility.setBackend(<span class="fstat-no" title="function not covered" >function(facility, level, args){</span>
+    // args to string
+<span class="cstat-no" title="statement not covered" >    args = args.map(<span class="fstat-no" title="function not covered" >function(s){</span></span>
+<span class="cstat-no" title="statement not covered" >        return s.toString();</span>
+    });
+&nbsp;
+    // log, info, debug
+<span class="cstat-no" title="statement not covered" >    if (level &gt; 5){</span>
+        // only display messages in normal operation mode
+<span class="cstat-no" title="statement not covered" >        if (silentModeEnabled !== true){</span>
+<span class="cstat-no" title="statement not covered" >            console.log(_colors.cyan('[' + facility.trim() + ']'), args.join(' '));</span>
+        }
+&nbsp;
+        // errors
+    }else{
+<span class="cstat-no" title="statement not covered" >        console.log(_colors.red('[' + facility.trim() + ']'), args.join(' '));</span>
+    }
+});
+&nbsp;
+// general content
+_nodemcutool.onOutput(<span class="fstat-no" title="function not covered" >function(message){</span>
+<span class="cstat-no" title="statement not covered" >    console.log(message);</span>
+});
+&nbsp;
+<span class="fstat-no" title="function not covered" >function cliPrepare(options){</span>
+    // default
+<span class="cstat-no" title="statement not covered" >    options = options || {};</span>
+&nbsp;
+    // silent mode enabled by flag ?
+<span class="cstat-no" title="statement not covered" >    silentModeEnabled = (_cli.silent===true);</span>
+&nbsp;
+    // silent mode enabled by json output format ?
+<span class="cstat-no" title="statement not covered" >    if (options.json &amp;&amp; options.json === true){</span>
+<span class="cstat-no" title="statement not covered" >        silentModeEnabled = true;</span>
+    }
+&nbsp;
+    // silent mode enabled by json raw format ?
+<span class="cstat-no" title="statement not covered" >    if (options.raw &amp;&amp; options.raw === true){</span>
+<span class="cstat-no" title="statement not covered" >        silentModeEnabled = true;</span>
+    }
+&nbsp;
+    // merge global flags, command flags and global defaults
+<span class="cstat-no" title="statement not covered" >    var defaultConfig = {</span>
+        // global flags
+        baudrate:           _cli.baud           || '115200',
+        port:               _cli.port           || '/dev/ttyUSB0',
+        connectionDelay:    _cli.connectionDelay || 0,
+&nbsp;
+        // command specific flags
+        optimize:   options.optimize    || false,
+        compile:    options.compile     || false,
+        keeppath:   options.keeppath    || false,
+        remotename: options.remotename  || null,
+        run:        options.run         || false,
+        all:        options.all         || false,
+        json:       options.json        || false,
+        raw:        options.raw         || false,
+        softreset:  options.softreset   || false
+    };
+&nbsp;
+    // project based configuration
+<span class="cstat-no" title="statement not covered" >    try{</span>
+        // try to load project based configuration
+<span class="cstat-no" title="statement not covered" >        var data = _fs.readFileSync('.nodemcutool', 'utf8');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (data){</span>
+            // decode json based data
+<span class="cstat-no" title="statement not covered" >            var d = JSON.parse(data);</span>
+&nbsp;
+            // extract values
+<span class="cstat-no" title="statement not covered" >            defaultConfig.baudrate = d.baudrate || defaultConfig.baudrate;</span>
+<span class="cstat-no" title="statement not covered" >            defaultConfig.port = d.port || defaultConfig.port;</span>
+<span class="cstat-no" title="statement not covered" >            defaultConfig.optimize = (d.optimize &amp;&amp; d.optimize === true);</span>
+<span class="cstat-no" title="statement not covered" >            defaultConfig.compile = (d.compile &amp;&amp; d.compile === true);</span>
+<span class="cstat-no" title="statement not covered" >            defaultConfig.keeppath = (d.keeppath &amp;&amp; d.keeppath === true);</span>
+<span class="cstat-no" title="statement not covered" >            _logger.log('Project based configuration loaded');</span>
+        }
+    }catch (err){
+    }
+&nbsp;
+    // set port/baud options
+<span class="cstat-no" title="statement not covered" >    _nodemcutool.setOptions({</span>
+        device: defaultConfig.port,
+        baudrate: defaultConfig.baudrate,
+        connectionDelay: defaultConfig.connectionDelay
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return defaultConfig;</span>
+}
+&nbsp;
+&nbsp;
+// CLI setup
+_cli
+    // read file version package.json
+    .version(_pkg.version)
+&nbsp;
+    // serial port device
+    .option('-p, --port &lt;port&gt;', 'Serial port device name e.g. /dev/ttyUSB0, COM1', null)
+&nbsp;
+    // serial port baudrate
+    .option('-b, --baud &lt;baudrate&gt;', 'Serial Port Baudrate in bps, default 115200', null)
+&nbsp;
+    // silent mode - no status messages are shown
+    .option('--silent', 'Enable silent mode - no status messages are shown', false)
+&nbsp;
+    // connection delay between opening the serial device and starting the communication
+    .option('--connection-delay &lt;delay&gt;', 'Connection delay between opening the serial device and starting the communication', 0);
+&nbsp;
+_cli
+    .command('fsinfo')
+    .description('Show file system info (current files, memory usage)')
+&nbsp;
+    // json output mode
+    .option('--json', 'Display output JSON encoded', false)
+&nbsp;
+    // raw output mode
+    .option('--raw', 'Display output as simple text with tab delimiter', false)
+&nbsp;
+    .action(<span class="fstat-no" title="function not covered" >function(opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+        // output format
+<span class="cstat-no" title="statement not covered" >        var format = 'human';</span>
+&nbsp;
+        // json format ?
+<span class="cstat-no" title="statement not covered" >        if (options.json){</span>
+<span class="cstat-no" title="statement not covered" >            format = 'json';</span>
+        }
+&nbsp;
+        // raw format (text)
+<span class="cstat-no" title="statement not covered" >        if (options.raw){</span>
+<span class="cstat-no" title="statement not covered" >            format = 'raw';</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _nodemcutool.fsinfo(format);</span>
+    });
+&nbsp;
+_cli
+    .command('run &lt;file&gt;')
+    .description('Executes an existing .lua or .lc file on NodeMCU')
+    .action(<span class="fstat-no" title="function not covered" >function(filename, opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _nodemcutool.run(filename);</span>
+    });
+&nbsp;
+_cli
+    .command('upload [files...]')
+    .description('Upload Files to NodeMCU (ESP8266) target')
+&nbsp;
+    // file cleanup
+    .option('-o, --optimize', 'Removes comments and empty lines from file before uploading', false)
+&nbsp;
+    // compile files after upload
+    .option('-c, --compile', 'Compile Lua file to bytecode (.lc) and remove the original file after upload', false)
+&nbsp;
+    // keep-path
+    .option('-k, --keeppath', 'Keep a relative file path in the destination filename (i.e: static/test.html will be named static/test.html)', false)
+&nbsp;
+    // sets the remote filename
+    .option('-n, --remotename &lt;remotename&gt;', 'Set destination file name. Default is same as original. Only available when uploading a single file!', false)
+&nbsp;
+    .action(<span class="fstat-no" title="function not covered" >function(localFiles, opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+        // initialize a new progress bar
+<span class="cstat-no" title="statement not covered" >        var bar = new _progressbar.Bar({</span>
+            format: 'Upload Status {percentage}% [{bar}] | ETA {eta}s',
+            clearOnComplete: true
+        });
+&nbsp;
+        // files provided ?
+<span class="cstat-no" title="statement not covered" >        if (localFiles.length == 0){</span>
+<span class="cstat-no" title="statement not covered" >            _logger.error('No files provided for upload (empty file-list)');</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+        // handle multiple uploads
+<span class="cstat-no" title="statement not covered" >        var currentFileNumber = 0;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _nodemcutool.upload(localFiles, options, <span class="fstat-no" title="function not covered" >function(current, total, fileNumber){</span></span>
+&nbsp;
+            // new file ?
+<span class="cstat-no" title="statement not covered" >            if (currentFileNumber != fileNumber){</span>
+<span class="cstat-no" title="statement not covered" >                bar.stop();</span>
+<span class="cstat-no" title="statement not covered" >                currentFileNumber = fileNumber;</span>
+<span class="cstat-no" title="statement not covered" >                bar.start(total, 1);</span>
+            }else{
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                bar.update(current);</span>
+&nbsp;
+                // finished ?
+<span class="cstat-no" title="statement not covered" >                if (current &gt;= total) {</span>
+<span class="cstat-no" title="statement not covered" >                    bar.stop();</span>
+                }
+            }
+        });
+    });
+&nbsp;
+_cli
+    .command('download &lt;file&gt;')
+    .description('Download files from NodeMCU (ESP8266) target')
+&nbsp;
+    .action(<span class="fstat-no" title="function not covered" >function(remoteFilename, opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _nodemcutool.download(remoteFilename);</span>
+    });
+&nbsp;
+_cli
+    .command('remove &lt;file&gt;')
+    .description('Removes a file from NodeMCU filesystem')
+    .action(<span class="fstat-no" title="function not covered" >function(filename, opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _nodemcutool.remove(filename);</span>
+    });
+&nbsp;
+_cli
+    .command('mkfs')
+    .description('Format the SPIFFS filesystem - ALL FILES ARE REMOVED')
+&nbsp;
+    // force fs creation without prompt
+    .option('--noninteractive', 'Execute command without user interaction', false)
+&nbsp;
+    .action(<span class="fstat-no" title="function not covered" >function(opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+        // no prompt!
+<span class="cstat-no" title="statement not covered" >        if (opt.noninteractive){</span>
+            // format
+<span class="cstat-no" title="statement not covered" >            _nodemcutool.mkfs();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+        // user confirmation required!
+<span class="cstat-no" title="statement not covered" >        _prompt.start();</span>
+<span class="cstat-no" title="statement not covered" >        _prompt.message = '';</span>
+<span class="cstat-no" title="statement not covered" >        _prompt.delimiter = '';</span>
+<span class="cstat-no" title="statement not covered" >        _prompt.colors = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _prompt.get({</span>
+            properties: {
+                confirm: {
+                    pattern: /^(yes|no|y|n)$/gi,
+                    description: _colors.cyan('[NodeMCU-Tool]') + ' Do you really want to format the filesystem and delete all file ?',
+                    message: 'Type yes/no',
+                    required: true,
+                    default: 'no'
+                }
+            }
+        }, <span class="fstat-no" title="function not covered" >function (err, result){</span>
+<span class="cstat-no" title="statement not covered" >            if (err){</span>
+<span class="cstat-no" title="statement not covered" >                _logger.error('Formatting aborted');</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // transform to lower case
+<span class="cstat-no" title="statement not covered" >            var c = result.confirm.toLowerCase();</span>
+&nbsp;
+            // check
+<span class="cstat-no" title="statement not covered" >            if (c!='y' &amp;&amp; c!='yes'){</span>
+<span class="cstat-no" title="statement not covered" >                _logger.error('Formatting aborted');</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+&nbsp;
+            // format
+<span class="cstat-no" title="statement not covered" >            _nodemcutool.mkfs();</span>
+        });
+&nbsp;
+    });
+&nbsp;
+&nbsp;
+_cli
+    .command('terminal')
+    .description('Opens a Terminal connection to NodeMCU')
+    .option('--run &lt;filename&gt;', 'Running a file on NodeMCU before starting the terminal session', false)
+    .action(<span class="fstat-no" title="function not covered" >function(opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+        // run a initial command on startup ?
+<span class="cstat-no" title="statement not covered" >        var initialCommand = null;</span>
+<span class="cstat-no" title="statement not covered" >        if (options.run){</span>
+<span class="cstat-no" title="statement not covered" >            initialCommand = _luaCommandBuilder.prepare('run', [options.run]);</span>
+        }
+&nbsp;
+        // start terminal session
+<span class="cstat-no" title="statement not covered" >        _nodemcutool.terminal(initialCommand);</span>
+    });
+&nbsp;
+_cli
+    .command('init')
+    .description('Initialize a project-based Configuration (file) within current directory')
+    .action(<span class="fstat-no" title="function not covered" >function(opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _logger.log('Creating project based configuration file..');</span>
+&nbsp;
+        // get user input
+<span class="cstat-no" title="statement not covered" >        _prompt.start();</span>
+<span class="cstat-no" title="statement not covered" >        _prompt.message = '';</span>
+<span class="cstat-no" title="statement not covered" >        _prompt.delimiter = '';</span>
+<span class="cstat-no" title="statement not covered" >        _prompt.colors = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _prompt.get({</span>
+            properties: {
+                baudrate: {
+                    pattern: /^\d+$/,
+                    description: _colors.cyan('[NodeMCU-Tool]') + ' Baudrate in Bit per Seconds, e.g. 9600 (default)',
+                    required: false,
+                    message: 'Only Integers allowed!',
+                    default: 9600
+                },
+                port: {
+                    pattern: /^.+$/,
+                    description: _colors.cyan('[NodeMCU-Tool]') + ' Serial connection to use, e.g. COM1 or /dev/ttyUSB2',
+                    required: false,
+                    default: '/dev/ttyUSB0'
+                }
+            }
+        }, <span class="fstat-no" title="function not covered" >function (err, data){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (err){</span>
+<span class="cstat-no" title="statement not covered" >                _logger.error(err);</span>
+            }else{
+                // set defaults
+<span class="cstat-no" title="statement not covered" >                data.optimize = false;</span>
+<span class="cstat-no" title="statement not covered" >                data.compile = false;</span>
+<span class="cstat-no" title="statement not covered" >                data.keeppath = false;</span>
+&nbsp;
+                // write config to file
+<span class="cstat-no" title="statement not covered" >                _fs.writeFileSync('.nodemcutool', JSON.stringify(data, null, 4));</span>
+            }
+        });
+    });
+&nbsp;
+_cli
+    .command('devices')
+    .description('Shows a list of all available NodeMCU Modules/Serial Devices')
+&nbsp;
+    // disable the device filter based on vendorId's of common NodeMCU modules
+    .option('--all', 'Show all Serial Devices, not only NodeMCU Modules', false)
+&nbsp;
+    // json output mode
+    .option('--json', 'Display output JSON encoded', false)
+&nbsp;
+&nbsp;
+    .action(<span class="fstat-no" title="function not covered" >function(opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _nodemcutool.devices(options.all, options.json);</span>
+    });
+&nbsp;
+_cli
+    .command('reset')
+    .description('Execute a Hard-Reset of the Module using DTR/RTS reset circuit')
+&nbsp;
+    // softreset mode
+    .option('--softreset', 'Resets the module using node.restart() command', false)
+&nbsp;
+&nbsp;
+    .action(<span class="fstat-no" title="function not covered" >function(opt){</span>
+<span class="cstat-no" title="statement not covered" >        var options = cliPrepare(opt);</span>
+&nbsp;
+        // software reset
+<span class="cstat-no" title="statement not covered" >        if (options.softreset){</span>
+<span class="cstat-no" title="statement not covered" >            _nodemcutool.softreset();</span>
+&nbsp;
+        // hard-reset nRST
+        }else{
+<span class="cstat-no" title="statement not covered" >            _nodemcutool.reset();</span>
+        }
+&nbsp;
+    });
+&nbsp;
+_cli
+    .command('*')
+    .action(<span class="fstat-no" title="function not covered" >function(c){</span>
+<span class="cstat-no" title="statement not covered" >        _logger.error('Unknown command "' + c + '"');</span>
+<span class="cstat-no" title="statement not covered" >        _cli.outputHelp();</span>
+    });
+&nbsp;
+// run the commander dispatcher
+_cli.parse(process.argv);
+&nbsp;
+// default action (no command provided)
+<span class="missing-if-branch" title="else path not taken" >E</span>if (!process.argv.slice(2).length) {
+    _cli.outputHelp();
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Fri Apr 21 2017 17:45:36 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
