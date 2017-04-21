@@ -1,1 +1,39 @@
-{     "devDependencies": {         "electron-lite": "kaizhu256/node-electron-lite#alpha",         "utility2": "kaizhu256/node-utility2#alpha"     },     "name":"npmtest-nodemcu-tool",     "homepage": "https://github.com/npmtest/node-npmtest-nodemcu-tool",     "repository": {         "type": "git",         "url": "https://github.com/npmtest/node-npmtest-nodemcu-tool.git"     },     "scripts": {         "build-ci": "utility2 shReadmeTest build_ci.sh"     },     "version": "0.0.1" }
+{
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "description": "#### basic test coverage for  [nodemcu-tool (v2.0.4)](https://github.com/AndiDittrich/NodeMCU-Tool)  [![npm package](https://img.shields.io/npm/v/npmtest-nodemcu-tool.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-nodemcu-tool) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-nodemcu-tool.svg)](https://travis-ci.org/npmtest/node-npmtest-nodemcu-tool)",
+    "devDependencies": {
+        "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "utility2": "kaizhu256/node-utility2#alpha"
+    },
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmtest/node-npmtest-nodemcu-tool",
+    "keywords": [
+        "coverage",
+        "test",
+        "nodemcu-tool"
+    ],
+    "license": "MIT",
+    "main": "lib.npmtest_nodemcu_tool.js",
+    "name": "npmtest-nodemcu-tool",
+    "nameAlias": "npmtest_nodemcu_tool",
+    "nameOriginal": "npmtest-nodemcu-tool",
+    "os": [
+        "darwin",
+        "linux"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/npmtest/node-npmtest-nodemcu-tool.git"
+    },
+    "scripts": {
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "npm install \"kaizhu256/node-utility2#alpha\" && utility2 shDeployHeroku",
+        "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh postinstall",
+        "start": "PORT=${PORT:-8080} utility2 start test.js",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
+    },
+    "version": "0.0.1"
+}
